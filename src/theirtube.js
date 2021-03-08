@@ -208,7 +208,7 @@ const theirtube = {
             
             //Decides how many time it loops through, definetely a better way to write this.
             iteration++
-            throw new Error('BREAK!');
+            //throw new Error('BREAK!');
             if (iteration == iteration_num) {
                 iteration = 0;
                 break;
