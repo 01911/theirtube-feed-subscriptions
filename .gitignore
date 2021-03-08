@@ -3,3 +3,6 @@ node_modules/
 
 # Don't track files with these names
 .DS_Store
+
+#
+.env

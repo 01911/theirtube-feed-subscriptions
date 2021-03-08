@@ -3,6 +3,8 @@ const fs = require('fs');
 const path = require('path');
 const StealthPlugin = require('puppeteer-extra-plugin-stealth');
 const chalk = require('chalk');
+const axios = require('axios');
+const api = require('./api');
 const BASE_URL = 'https://www.youtube.com/';
 //directory of cookie where the puppeteer will look for.
 const COOKIE_PATH = path.join(__dirname, '../cookies/curator1_cookie');
@@ -13,7 +15,7 @@ puppeteer.use(StealthPlugin());
 
 //this iteration_num decides how many numbers of videos to scrape
 //Use 8 to scrape all the top page results
-let iteration_num = 8;
+let iteration_num = 100;
 let browser = null;
 let page = null;
 
@@ -40,7 +42,7 @@ const theirtube = {
         });
 
         console.log(await browser.userAgent());
-        await page.goto(BASE_URL);
+        await page.goto(BASE_URL+'feed/subscriptions');
         console.log(chalk.black.bgCyanBright(' Initialized, Going to —>" + BASE_URL'));
 
     },
@@ -158,11 +160,13 @@ const theirtube = {
         await page.screenshot({ path: SCREENSHOT_PATH });
 
         //$$ works exactly as a document.querySelectorAll() would in the browser console
-        let videoArray = await page.$$('#content > .ytd-rich-item-renderer');
+        let videoArray = await page.$$('.ytd-grid-video-renderer');
+        
         let videos = [];
         let iteration = 0;
 
         for (let videoElement of videoArray) {
+            //console.log(videoElement);
 
             var video = {};
             let youtube_url = "https://www.youtube.com";
@@ -170,26 +174,41 @@ const theirtube = {
             try{
             //.getAttribute gets elements within the class in HTML
             video.title = await videoElement.$eval('#video-title', element => element.innerText);
-            video.url = await videoElement.$eval('h3[class="style-scope ytd-rich-grid-video-renderer"] a[class="yt-simple-endpoint style-scope ytd-rich-grid-video-renderer"]', element => element.getAttribute('href'));
+            video.url = await videoElement.$eval('#video-title', element => element.getAttribute('href'));
             video.url = youtube_url.concat(video.url);
             video.channel = await videoElement.$eval('a[class="yt-simple-endpoint style-scope yt-formatted-string"]', element => element.innerText);
             video.channel_url = await videoElement.$eval('a[class="yt-simple-endpoint style-scope yt-formatted-string"]', element => element.getAttribute('href'));
             video.channel_url = youtube_url.concat(video.channel_url);
-            video.channel_icon = await videoElement.$eval('a[class="yt-simple-endpoint style-scope ytd-rich-grid-video-renderer"] img[class="style-scope yt-img-shadow"]', element => element.getAttribute('src'));
+            //video.channel_icon = await videoElement.$eval('a[class="yt-simple-endpoint style-scope ytd-rich-grid-video-renderer"] img[class="style-scope yt-img-shadow"]', element => element.getAttribute('src'));
             video.thumbnail = await videoElement.$eval('img[class="style-scope yt-img-shadow"]', element => element.getAttribute('src'));
-            video.viewnum = await videoElement.$eval('span[class="style-scope ytd-video-meta-block"]', element => element.innerText);
-            video.date = await videoElement.$eval('div[class="style-scope ytd-video-meta-block"]', element => element.innerText);
-            video.date = video.date.split("\n")[2];
+            //video.viewnum = await videoElement.$eval('span[class="style-scope ytd-video-meta-block"]', element => element.innerText);
+            //video.date = await videoElement.$eval('div[class="style-scope ytd-video-meta-block"]', element => element.innerText);
+            //video.date = video.date.split("\n")[2];
             videos.push(video);
-            console.log(video.title);
-            }
+            
+            //console.log(video.title);
+            
+        }
             catch(e){
-                console.log("‼️ Error occured during scraping" + e);
+                //console.log("‼️ Error occured during scraping" + e);
+                continue;
                 return e
             }
 
+            if(!video.thumbnail){
+                continue;
+            }
+
+            try{
+                await api.post(`/feed/trending`, video);
+            }
+            catch(err){
+                console.log('Erro ao cadastrar video: ', video.title, err.message)
+            }
+            
             //Decides how many time it loops through, definetely a better way to write this.
             iteration++
+            throw new Error('BREAK!');
             if (iteration == iteration_num) {
                 iteration = 0;
                 break;
@@ -202,7 +221,8 @@ const theirtube = {
         const data = JSON.parse(dataJson);
 
         //add json object to add videos to later
-        const video_template = { date: "", month: "", day: "", year: "", id:accountName, videos: [] }
+        const video_template = { date: "", month: "", day: "", year: "", id:accountName, videos: [] };
+        console.warn(accountName);
         data[accountName].video_array.unshift(video_template);
 
         //Adding date to the date category
