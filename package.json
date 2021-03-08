@@ -4,7 +4,8 @@
   "description": "Testing Scraping",
   "main": "index.js",
   "scripts": {
-    "scrape": "node src/index.js"
+    "scrape": "node src/index.js",
+    "start": "node src/index.js"
   },
   "author": "kihapper",
   "license": "ISC",
