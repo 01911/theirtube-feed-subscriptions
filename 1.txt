@@ -1,0 +1,16 @@
+2021-03-08T13:16:16.646654+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" 
+host=theirtube-feed-subscription.herokuapp.com request_id=467eada4-284f-4714-a38d-37cecdc371e6 fwd="201.17.91.193" 
+dyno= connect= service= status=503 bytes= protocol=https
+
+---
+
+2021-03-08T13:15:45.045766+00:00 app[web.1]:     at Socket.emit (events.js:327:22)
+2021-03-08T13:15:45.045767+00:00 app[web.1]:     at endReadableNT (internal/streams/readable.js:1327:12)
+2021-03-08T13:15:45.045767+00:00 app[web.1]:     at processTicksAndRejections (internal/process/task_queues.js:80:21)
+2021-03-08T13:15:45.045768+00:00 app[web.1]: (Use `node --trace-warnings ...` to show where the warning was created)
+2021-03-08T13:15:45.055141+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+2021-03-08T13:15:45.055260+00:00 app[web.1]: (node:21) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+2021-03-08T13:15:45.231162+00:00 heroku[web.1]: Process exited with status 0
+2021-03-08T13:15:45.316198+00:00 heroku[web.1]: State changed from starting to crashed
+2021-03-08T13:16:16.646654+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/" host=theirtube-feed-subscription.herokuapp.com request_id=467eada4-284f-4714-a38d-37cecdc371e6 fwd="201.17.91.193" dyno= connect= service= status=503 bytes= protocol=https
+2021-03-08T13:16:16.926414+00:00 heroku[router]: at=error code=H10 desc="App crashed" method=GET path="/favicon.ico" host=theirtube-feed-subscription.herokuapp.com request_id=1167a4c3-52cf-4d7f-9cce-6f05a230eb5e fwd="201.17.91.193" dyno= connect= service= status=503 bytes= protocol=https

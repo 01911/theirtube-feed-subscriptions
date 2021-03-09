@@ -1,0 +1,65 @@
+(node:21) UnhandledPromiseRejectionWarning: Error: Failed to launch chrome!
+
+
+pegar Heroku git URL em: heroku dashboard > settings
+https://dashboard.heroku.com/apps/theirtube-feed-subscription/settings
+
+associar app ao heroku cli
+https://stackoverflow.com/questions/53551717/couldnt-find-that-app-when-running-heroku-commands-in-console
+heroku apps
+heroku git:remote -a theirtube-feed-subscription
+
+adicionar buildpack
+https://github.com/jontewks/puppeteer-heroku-buildpack
+heroku buildpacks:add jontewks/puppeteer
+
+$ heroku buildpacks:add jontewks/puppeteer
+Buildpack added. Next release on theirtube-feed-subscription will use:
+  1. heroku/nodejs
+  2. jontewks/puppeteer
+Run git push heroku main to create a new release using these buildpacks.
+
+https://stackoverflow.com/questions/45064655/how-to-clean-cache-in-heroku-after-installing-dependencies
+
+---
+
+2021-03-08T13:27:16.185819+00:00 heroku[web.1]: Starting process with command `npm start`
+2021-03-08T13:27:20.124607+00:00 app[web.1]: 
+2021-03-08T13:27:20.124692+00:00 app[web.1]: > version1@1.0.0 start /app
+2021-03-08T13:27:20.124693+00:00 app[web.1]: > node src/index.js
+2021-03-08T13:27:20.124699+00:00 app[web.1]: 
+2021-03-08T13:27:21.409885+00:00 heroku[web.1]: State changed from starting to up
+2021-03-08T13:27:22.756862+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Error: Failed to launch chrome!
+2021-03-08T13:27:22.756882+00:00 app[web.1]: /app/node_modules/puppeteer/.local-chromium/linux-706915/chrome-linux/chrome: error while loading shared libraries: libX11-xcb.so.1: cannot open shared object file: No such file or directory
+2021-03-08T13:27:22.756884+00:00 app[web.1]: 
+2021-03-08T13:27:22.756884+00:00 app[web.1]: 
+2021-03-08T13:27:22.756885+00:00 app[web.1]: TROUBLESHOOTING: https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+2021-03-08T13:27:22.756885+00:00 app[web.1]: 
+2021-03-08T13:27:22.756886+00:00 app[web.1]:     at onClose (/app/node_modules/puppeteer/lib/Launcher.js:348:14)
+2021-03-08T13:27:22.756886+00:00 app[web.1]:     at Interface.<anonymous> (/app/node_modules/puppeteer/lib/Launcher.js:337:50)
+2021-03-08T13:27:22.756887+00:00 app[web.1]:     at Interface.emit (events.js:327:22)
+2021-03-08T13:27:22.756887+00:00 app[web.1]:     at Interface.close (readline.js:424:8)
+2021-03-08T13:27:22.756888+00:00 app[web.1]:     at Socket.onend (readline.js:202:10)
+2021-03-08T13:27:22.756888+00:00 app[web.1]:     at Socket.emit (events.js:327:22)
+2021-03-08T13:27:22.756889+00:00 app[web.1]:     at endReadableNT (internal/streams/readable.js:1327:12)
+2021-03-08T13:27:22.756889+00:00 app[web.1]:     at processTicksAndRejections (internal/process/task_queues.js:80:21)
+2021-03-08T13:27:22.756890+00:00 app[web.1]: (Use `node --trace-warnings ...` to show where the warning was created)
+2021-03-08T13:27:22.762754+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 1)
+2021-03-08T13:27:22.762917+00:00 app[web.1]: (node:21) [DEP0018] DeprecationWarning: Unhandled promise rejections are deprecated. In the future, promise rejections that are not handled will terminate the Node.js process with a non-zero exit code.
+2021-03-08T13:27:52.315801+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=GET path="/" host=theirtube-feed-subscription.herokuapp.com request_id=fd5aa02c-329c-4f66-8770-9da4db167fe0 fwd="201.17.91.193" dyno=web.1 connect=5ms service=30001ms status=503 bytes=0 protocol=https
+2021-03-08T13:27:52.671423+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Error: Failed to launch chrome!
+2021-03-08T13:27:52.671434+00:00 app[web.1]: /app/node_modules/puppeteer/.local-chromium/linux-706915/chrome-linux/chrome: error while loading shared libraries: libX11-xcb.so.1: cannot open shared object file: No such file or directory
+2021-03-08T13:27:52.671435+00:00 app[web.1]: 
+2021-03-08T13:27:52.671435+00:00 app[web.1]: 
+2021-03-08T13:27:52.671436+00:00 app[web.1]: TROUBLESHOOTING: https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+2021-03-08T13:27:52.671436+00:00 app[web.1]: 
+2021-03-08T13:27:52.671437+00:00 app[web.1]:     at onClose (/app/node_modules/puppeteer/lib/Launcher.js:348:14)
+2021-03-08T13:27:52.671437+00:00 app[web.1]:     at Interface.<anonymous> (/app/node_modules/puppeteer/lib/Launcher.js:337:50)
+2021-03-08T13:27:52.671438+00:00 app[web.1]:     at Interface.emit (events.js:327:22)
+2021-03-08T13:27:52.671438+00:00 app[web.1]:     at Interface.close (readline.js:424:8)
+2021-03-08T13:27:52.671438+00:00 app[web.1]:     at Socket.onend (readline.js:202:10)
+2021-03-08T13:27:52.671439+00:00 app[web.1]:     at Socket.emit (events.js:327:22)
+2021-03-08T13:27:52.671439+00:00 app[web.1]:     at endReadableNT (internal/streams/readable.js:1327:12)
+2021-03-08T13:27:52.671440+00:00 app[web.1]:     at processTicksAndRejections (internal/process/task_queues.js:80:21)
+2021-03-08T13:27:52.671633+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 2)
+2021-03-08T13:28:22.628900+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=GET path="/favicon.ico" host=theirtube-feed-subscription.herokuapp.com request_id=41529900-ed02-4e0f-90af-40414838413a fwd="201.17.91.193" dyno=web.1 connect=1ms service=30000ms status=503 bytes=0 protocol=https

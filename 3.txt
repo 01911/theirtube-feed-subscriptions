@@ -1,0 +1,41 @@
+To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict`
+"start": "node --unhandled-rejections=strict src/index.js"
+
+git add .
+git commit -am 'disable node_modules cache' --allow-empty
+git push heroku master
+
+https://dev.to/ziv/running-puppeteer-on-heroku-free-tier-e7b
+
+https://stackoverflow.com/questions/57039529/how-tu-run-puppeteer-chromium-chrome-headlessfalse-on-centos-6-7-server
+await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3419.0 Safari/537.36');
+
+https://www.fabiofranchino.com/blog/create-website-screenshot-service-with-puppeteer-on-heroku/
+http://localhost:3333/
+http://localhost:3333/screenshot?url=https://www.google.com
+https://theirtube-feed-subscription.herokuapp.com/screenshot?url=https://www.google.com
+
+2021-03-08T14:14:21.644481+00:00 app[web.1]: (chrome:50): Gtk-WARNING **: 14:14:21.631: cannot open display: 
+2021-03-08T14:14:21.644481+00:00 app[web.1]: 
+2021-03-08T14:14:21.644482+00:00 app[web.1]: 
+2021-03-08T14:14:21.644486+00:00 app[web.1]: TROUBLESHOOTING: https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+2021-03-08T14:14:21.644486+00:00 app[web.1]: 
+2021-03-08T14:14:21.644487+00:00 app[web.1]:     at onClose (/app/node_modules/puppeteer/lib/Launcher.js:348:14)
+2021-03-08T14:14:21.644487+00:00 app[web.1]:     at ChildProcess.<anonymous> (/app/node_modules/puppeteer/lib/Launcher.js:338:60)
+2021-03-08T14:14:21.644488+00:00 app[web.1]:     at ChildProcess.emit (events.js:327:22)
+2021-03-08T14:14:21.644488+00:00 app[web.1]:     at Process.ChildProcess._handle.onexit (internal/child_process.js:277:12)
+2021-03-08T14:14:21.644759+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 3)
+2021-03-08T14:14:51.381913+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=GET path="/" host=theirtube-feed-subscription.herokuapp.com request_id=cd343586-b9f4-4cd5-825f-9d339ea6844f fwd="201.17.91.193" dyno=web.1 connect=1ms service=30002ms status=503 bytes=0 protocol=https
+2021-03-08T14:14:51.953175+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Error: Failed to launch chrome!
+2021-03-08T14:14:51.953189+00:00 app[web.1]: 
+2021-03-08T14:14:51.953190+00:00 app[web.1]: (chrome:59): Gtk-WARNING **: 14:14:51.944: cannot open display: 
+2021-03-08T14:14:51.953190+00:00 app[web.1]: 
+2021-03-08T14:14:51.953190+00:00 app[web.1]: 
+2021-03-08T14:14:51.953192+00:00 app[web.1]: TROUBLESHOOTING: https://github.com/GoogleChrome/puppeteer/blob/master/docs/troubleshooting.md
+2021-03-08T14:14:51.953192+00:00 app[web.1]: 
+2021-03-08T14:14:51.953193+00:00 app[web.1]:     at onClose (/app/node_modules/puppeteer/lib/Launcher.js:348:14)
+2021-03-08T14:14:51.953193+00:00 app[web.1]:     at ChildProcess.<anonymous> (/app/node_modules/puppeteer/lib/Launcher.js:338:60)
+2021-03-08T14:14:51.953195+00:00 app[web.1]:     at ChildProcess.emit (events.js:327:22)
+2021-03-08T14:14:51.953195+00:00 app[web.1]:     at Process.ChildProcess._handle.onexit (internal/child_process.js:277:12)
+2021-03-08T14:14:51.953577+00:00 app[web.1]: (node:21) UnhandledPromiseRejectionWarning: Unhandled promise rejection. This error originated either by throwing inside of an async function without a catch block, or by rejecting a promise which was not handled with .catch(). To terminate the node process on unhandled promise rejection, use the CLI flag `--unhandled-rejections=strict` (see https://nodejs.org/api/cli.html#cli_unhandled_rejections_mode). (rejection id: 4)
+2021-03-08T14:15:21.664477+00:00 heroku[router]: at=error code=H12 desc="Request timeout" method=GET path="/favicon.ico" host=theirtube-feed-subscription.herokuapp.com request_id=45bfe016-1d68-458c-ab06-707d7764f12d fwd="201.17.91.193" dyno=web.1 connect=0ms service=30000ms status=503 bytes=0 protocol=https

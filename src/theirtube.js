@@ -23,18 +23,33 @@ const theirtube = {
 
     initialize: async () => {
 
+        /*
         browser = await puppeteer.launch({
-            userDataDir: COOKIE_PATH,
+            //userDataDir: COOKIE_PATH,
             headless: false,
             devtools: false,
             args: [
+                "--incognito",
+                //"--single-process",
+                "--no-zygote",
+
                 '--no-sandbox',
                 '--disable-setuid-sandbox',
                 '--disable-gpu'
             ]
         });
+        */
 
-        page = await browser.newPage();
+        const browser = await puppeteer.launch({
+            userDataDir: COOKIE_PATH,
+            // headless: true, // debug only
+            args: ['--no-sandbox']
+        })
+    
+        const page = await browser.newPage()
+
+        //await page.setUserAgent('Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/68.0.3419.0 Safari/537.36');
+        await page.emulateMedia('screen');
 
         await page.setViewport({
             width: 1200,
@@ -44,6 +59,8 @@ const theirtube = {
         console.log(await browser.userAgent());
         await page.goto(BASE_URL+'feed/subscriptions');
         console.log(chalk.black.bgCyanBright(' Initialized, Going to —>" + BASE_URL'));
+
+        return page;
 
     },
 
@@ -137,8 +154,10 @@ const theirtube = {
 
     scrape: async (accountName) => {
         //This  gets an array with the name of the persona[0] is the name lable conspiracist.
+        console.log('===>param-accountName', accountName);
         accountName = accountName[0];
 
+        const page = await theirtube.initialize();
         await page.waitFor("#content");
         console.log("🔨 Scraper Starting for : " + accountName + " ——— waiting 5 seconds " + '\n');
         await page.waitFor(5000);
@@ -161,6 +180,7 @@ const theirtube = {
 
         //$$ works exactly as a document.querySelectorAll() would in the browser console
         let videoArray = await page.$$('.ytd-grid-video-renderer');
+        console.log('===>videoArray-length', videoArray.length);
         
         let videos = [];
         let iteration = 0;
@@ -200,7 +220,8 @@ const theirtube = {
             }
 
             try{
-                await api.post(`/feed/trending`, video);
+                console.log('===>api-post', video.title);
+                //await api.post(`/feed/trending`, video);
             }
             catch(err){
                 console.log('Erro ao cadastrar video: ', video.title, err.message)
@@ -222,7 +243,7 @@ const theirtube = {
 
         //add json object to add videos to later
         const video_template = { date: "", month: "", day: "", year: "", id:accountName, videos: [] };
-        console.warn(accountName);
+        console.log('===>data-accountName', accountName);
         data[accountName].video_array.unshift(video_template);
 
         //Adding date to the date category

@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "scrape": "node src/index.js",
-    "start": "node --unhandled-rejections=strict src/index.js"
+    "start": "node src/server.js",
+    "dev": "nodemon src/server.js"
   },
   "author": "kihapper",
   "license": "ISC",
@@ -14,7 +15,9 @@
     "chalk": "3.0.0",
     "cheerio": "1.0.0-rc.3",
     "dotenv": "8.2.0",
+    "express": "^4.17.1",
     "node-schedule": "^2.0.0",
+    "nodemon": "^2.0.7",
     "puppeteer": "2.0.0",
     "puppeteer-extra": "3.1.9",
     "puppeteer-extra-plugin-stealth": "^2.7.5",
